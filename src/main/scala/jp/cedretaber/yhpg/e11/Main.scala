@@ -18,9 +18,8 @@ object Main {
           case child if child != exclude => impl(Cursor(child, Some(scur)), step + 1, scur.node)
         } :+ (
           scur.parent match {
-            case None => Int.MaxValue
-            case Some(par) if par.node == exclude => Int.MaxValue
-            case Some(par) => impl(par, step + 1, scur.node)
+            case Some(par) if par.node != exclude => impl(par, step + 1, scur.node)
+            case _ => Int.MaxValue
           }
         ) :+ Int.MaxValue).min
 
